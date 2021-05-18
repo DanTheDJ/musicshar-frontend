@@ -4,20 +4,14 @@ import { createBrowserHistory } from 'history';
 
 const history = createBrowserHistory();
 
-import { Index, Login} from './pages'; 
+import RootWrapper from './layouts/RootWrapper';
 
 const App = () => {
 
     return (
         <div>
-            <h1>App</h1>
             <BrowserRouter history={history}>
-                <Switch>
-
-                    <Route exact path="/">
-                        <Index></Index>
-                    </Route>
-                </Switch>
+                <RootWrapper></RootWrapper>
             </BrowserRouter>
         </div>
     );

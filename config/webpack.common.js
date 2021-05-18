@@ -28,6 +28,18 @@ module.exports = {
   module: {
 
     rules: [
+      
+        {
+          test: /\.(jpe?g|gif|png|svg)$/i,
+          use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000
+            }
+          }
+        ]
+      },
 
       {
 
@@ -68,46 +80,8 @@ module.exports = {
 
           MiniCssExtractPlugin.loader,
 
-          {
-
-            loader: 'css-loader',
-
-            options: {
-
-              modules: false,
-              sourceMaps: true,
-
-              minimize: {
-
-                safe: true
-
-              }
-
-            }
-
-          },
-
-          {
-
-            loader: 'postcss-loader',
-            options: {
-
-              plugins: () => [
-
-                require( 'autoprefixer' )( { browsers: ['last 2 versions'] } )
-
-              ]
-
-            },
-
-          },
-
-          {
-
-            loader: 'sass-loader',
-            options: {}
-
-          }
+          { loader: "css-loader", options: { importLoaders: 1 } },
+          "postcss-loader",
 
         ]
 
@@ -150,6 +124,10 @@ module.exports = {
 
     }
 
+  },
+
+  resolve: {
+    extensions: ['.js', '.jsx']
   }
 
 };
