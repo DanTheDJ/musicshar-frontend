@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Index = () => {
+const Home = () => {
 
     return (
         <div className="container pt-24 md:pt-36 mx-auto flex flex-wrap flex-col md:flex-row items-center">
@@ -67,4 +67,4 @@ const Index = () => {
 
 };
 
-export default Index;
+export default Home;

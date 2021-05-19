@@ -1,10 +1,10 @@
-import Index from './pages/Index';
+import Home from './pages/Home';
 
 import Register from './pages/Auth/Register';
 import Login from './pages/Auth/Login';
 
 export {
-    Index,
+    Home,
     Register,
     Login
 };

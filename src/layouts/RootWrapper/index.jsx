@@ -10,7 +10,7 @@ import Footer from '../../components/Footer';
 const RootWrapper = () => {
 
 return <div>
-  <div className="leading-normal tracking-normal text-gray-300 bg-cover bg-fixed bg-gray-900" style={{
+  <div className="leading-normal tracking-normal text-gray-300 bg-cover bg-fixed bg-gray-900 h-screen" style={{
     backgroundImage: `url("${backgroundImage}")`
     }}>
     <div>
