@@ -1,10 +1,10 @@
 import React from 'react';
-
 import { Redirect } from 'react-router-dom';
+import { withAlert } from 'react-alert';
 
 import Api from '/src/Api';
-
-export default class LoginForm extends React.Component
+import { axiosError } from '/src/helpers/apiErrorHandler';
+class RegisterForm extends React.Component
 {
 
     constructor(props)
@@ -60,9 +60,7 @@ export default class LoginForm extends React.Component
         })
         .catch((err) => {
 
-            console.error(err);
-
-            alert(err);
+            axiosError(self.props.alert, err);       
 
         });
 
@@ -83,7 +81,7 @@ export default class LoginForm extends React.Component
                 <form className="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4" onSubmit={this.handleFormSubmit}>
 
                     <div className="mb-4">
-                        <label className="block text-blue-300 py-2 font-bold mb-2" for="emailAddress">
+                        <label className="block text-blue-300 py-2 font-bold mb-2" htmlFor="emailAddress">
                             Email Address
                         </label>
                         <input
@@ -94,11 +92,12 @@ export default class LoginForm extends React.Component
                             placeholder="you@example.com"
                             value={this.state.registrationData.emailAddress}
                             onChange={this.handleInputChange}
+                            required="required"
                         />
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-blue-300 py-2 font-bold mb-2" for="emailAddress">
+                        <label className="block text-blue-300 py-2 font-bold mb-2" htmlFor="emailAddress">
                             Name
                         </label>
                         <input
@@ -109,11 +108,12 @@ export default class LoginForm extends React.Component
                             placeholder="you@example.com"
                             value={this.state.registrationData.name}
                             onChange={this.handleInputChange}
+                            required="required"
                         />
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-blue-300 py-2 font-bold mb-2" for="emailAddress">
+                        <label className="block text-blue-300 py-2 font-bold mb-2" htmlFor="emailAddress">
                             Username
                         </label>
                         <input
@@ -124,11 +124,12 @@ export default class LoginForm extends React.Component
                             placeholder="danc"
                             value={this.state.registrationData.username}
                             onChange={this.handleInputChange}
+                            required="required"
                         />
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-blue-300 py-2 font-bold mb-2" for="password">
+                        <label className="block text-blue-300 py-2 font-bold mb-2" htmlFor="password">
                             Password
                         </label>
                         <input
@@ -138,6 +139,7 @@ export default class LoginForm extends React.Component
                             type="password"
                             value={this.state.registrationData.password}
                             onChange={this.handleInputChange}
+                            required="required"
                         />
                     </div>
 
@@ -156,3 +158,5 @@ export default class LoginForm extends React.Component
     }
 
 }
+
+export default withAlert()(RegisterForm);
