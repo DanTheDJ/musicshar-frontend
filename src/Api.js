@@ -10,7 +10,34 @@ class Api
 
         var url = BASE_URL+'/auth/register';
 
-        return axios.post(url, data);
+        return axios.post(url, data, {withCredentials: true});
+
+    }
+
+    authenticateUser(data)
+    {
+
+        var url = BASE_URL+'/auth/authenticate';
+
+        return axios.post(url, data, {withCredentials: true});
+
+    }
+
+    logout()
+    {
+
+        var url = BASE_URL+'/auth/logout';
+
+        return axios.post(url, data, {withCredentials: true});
+
+    }
+
+    getProfile()
+    {
+
+        var url = BASE_URL+'/auth/me';
+
+        return axios.get(url, {withCredentials: true});
 
     }
 

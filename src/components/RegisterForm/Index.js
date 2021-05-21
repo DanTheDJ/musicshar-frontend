@@ -4,6 +4,7 @@ import { withAlert } from 'react-alert';
 
 import Api from '/src/Api';
 import { axiosError } from '/src/helpers/apiErrorHandler';
+
 class RegisterForm extends React.Component
 {
 

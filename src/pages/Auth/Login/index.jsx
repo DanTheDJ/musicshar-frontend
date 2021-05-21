@@ -32,9 +32,7 @@ const Login = () => {
             </p>
             <div className="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in">
                 <Link to="/auth/register">
-                    <a class="">
-                        Register
-                    </a>
+                Register
                 </Link>
             </div>
         </div>

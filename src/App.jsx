@@ -4,6 +4,9 @@ import { createBrowserHistory } from 'history';
 
 const history = createBrowserHistory();
 
+import { Provider } from "react-redux";
+import store from "/src/redux/store";
+
 import RootWrapper from './layouts/RootWrapper';
 
 const App = () => {
@@ -11,7 +14,9 @@ const App = () => {
     return (
         <div>
             <BrowserRouter history={history}>
-                <RootWrapper></RootWrapper>
+                <Provider store={store}>
+                    <RootWrapper></RootWrapper>
+                </Provider>
             </BrowserRouter>
         </div>
     );

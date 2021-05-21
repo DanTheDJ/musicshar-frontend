@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { transitions, positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
+
+import { connect } from "react-redux";
 
 // optional configuration
 const alertOptions = {
@@ -13,6 +15,8 @@ const alertOptions = {
   transition: transitions.SCALE
 };
 
+import { loadProfile } from '/src/helpers/authHelpers';
+
 import TopNavbar from '../../components/TopNavbar';
 
 import Routes from '../../Routes';
@@ -20,21 +24,35 @@ import Routes from '../../Routes';
 import backgroundImage from '../../img/header.png';
 import Footer from '../../components/Footer';
 
+const mapStateToProps = state => ({
+  user: state.auth.user,
+});
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loggedIn: (data) => dispatch({ type: 'LOGIN_SUCCESS', payload:{ user: data }})
+  };
+};
 
-const RootWrapper = () => {
+const RootWrapper = ({ user, loggedIn }) => {
+
+  useEffect(() => {
+
+    loadProfile(loggedIn);
+
+  }, []);
 
   return <AlertProvider template={AlertTemplate} {...alertOptions}>
-  <div className="leading-normal tracking-normal text-gray-300 bg-cover bg-fixed bg-gray-900 h-full" style={{ backgroundImage: `url("${backgroundImage}")` }}>
-    
-      <div>
-        <TopNavbar />
+    <div className="leading-normal tracking-normal text-gray-300 bg-cover bg-fixed bg-gray-900 h-full" style={{ backgroundImage: `url("${backgroundImage}")` }}>
+        <div>
+          <TopNavbar/>
 
-        <Routes />
+          <Routes />
 
-        <Footer />
-    </div>
+          <Footer />
+      </div>
     </div>
 </AlertProvider>;
 };
-export default RootWrapper;
+
+export default connect(mapStateToProps, mapDispatchToProps)(RootWrapper);

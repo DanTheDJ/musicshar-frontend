@@ -18,10 +18,10 @@ const Home = () => {
             <LoginForm></LoginForm>
         </div>
         <div className="flex flex-col w-full xl:w-1/5 justify-center lg:items-start overflow-y-hidden">&nbsp;</div>
-        <div class="mx-auto md:pt-16">
-            <p class="text-blue-400 font-bold pb-8 lg:pb-6 text-center">
+        <div className="mx-auto md:pt-16">
+            <p className="text-blue-400 font-bold pb-8 lg:pb-6 text-center">
                 Don't have an account yet?</p>
-                <div class="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in">
+                <div className="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in">
                     <Link to="/auth/register">
                         <button
                         className="text-xl bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-4 px-6 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
