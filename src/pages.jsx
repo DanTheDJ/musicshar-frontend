@@ -5,9 +5,12 @@ import Login from './pages/Auth/Login';
 
 import Dashboard from './pages/Dashboard';
 
+import CreateRoom from '/src/pages/Room/Create';
+
 export {
     Home,
     Register,
     Login,
-    Dashboard
+    Dashboard,
+    CreateRoom
 };
