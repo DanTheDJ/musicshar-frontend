@@ -2,8 +2,10 @@ import React from 'react';
 
 import { Switch, Link, Route } from 'react-router-dom';
 
+import ProtectedRoute from '/src/components/ProtectedRoute';
+
 // Import pages
-import { Home, Login, Register } from './pages';
+import { Home, Login, Register, Dashboard } from './pages';
 
 const Routes = () => {
 
@@ -11,6 +13,8 @@ const Routes = () => {
         <Switch>
 
             <Route exact path="/" component={Home} />
+
+            <ProtectedRoute exact path="/dashboard" component={Dashboard} />
 
             <Route exact path="/auth/register" component={Register} />
 

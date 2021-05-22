@@ -5,6 +5,8 @@ import { connect} from 'react-redux';
 
 import { withAlert } from 'react-alert';
 
+import { loadProfile } from '/src/redux/actions/auth';
+
 import Api from '/src/Api';
 import { axiosError } from '/src/helpers/apiErrorHandler';
 
@@ -55,14 +57,7 @@ class LoginForm extends React.Component
 
         Api.authenticateUser(this.state.loginData).then(() => {
 
-            console.log(account);
-
-            self.props.dispatch({
-                type: 'LOGIN_SUCCESS',
-                payload: {
-                    user: account.data
-                }
-            });
+            self.props.loadProfileInformation();
 
             self.setState({
                 redirect: <Redirect to="/" />
@@ -138,4 +133,13 @@ class LoginForm extends React.Component
 
 }
 
-export default connect()(LoginForm);
+const mapStateToProps = state => ({
+    user: state.auth.user,
+  });
+  
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      loadProfileInformation: () => dispatch(loadProfile())
+    };
+  };
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

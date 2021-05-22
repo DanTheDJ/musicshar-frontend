@@ -15,7 +15,7 @@ const alertOptions = {
   transition: transitions.SCALE
 };
 
-import { loadProfile } from '/src/helpers/authHelpers';
+import { loadProfile } from '/src/redux/actions/auth';
 
 import TopNavbar from '../../components/TopNavbar';
 
@@ -24,26 +24,16 @@ import Routes from '../../Routes';
 import backgroundImage from '../../img/header.png';
 import Footer from '../../components/Footer';
 
-const mapStateToProps = state => ({
-  user: state.auth.user,
-});
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loggedIn: (data) => dispatch({ type: 'LOGIN_SUCCESS', payload:{ user: data }})
-  };
-};
-
-const RootWrapper = ({ user, loggedIn }) => {
+const RootWrapper = ({ user, loadProfileInformation }) => {
 
   useEffect(() => {
 
-    loadProfile(loggedIn);
+    loadProfileInformation();
 
   }, []);
 
   return <AlertProvider template={AlertTemplate} {...alertOptions}>
-    <div className="leading-normal tracking-normal text-gray-300 bg-cover bg-fixed bg-gray-900 h-full" style={{ backgroundImage: `url("${backgroundImage}")` }}>
+    <div className="leading-normal tracking-normal text-gray-300 bg-cover bg-fixed bg-gray-900 h-full" style={{ backgroundImage: `url("${backgroundImage}")`, minHeight: '100vh' }}>
         <div>
           <TopNavbar/>
 
@@ -53,6 +43,16 @@ const RootWrapper = ({ user, loggedIn }) => {
       </div>
     </div>
 </AlertProvider>;
+};
+
+const mapStateToProps = state => ({
+  user: state.auth.user,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadProfileInformation: () => dispatch(loadProfile())
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RootWrapper);

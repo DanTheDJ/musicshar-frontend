@@ -28,7 +28,7 @@ class Api
 
         var url = BASE_URL+'/auth/logout';
 
-        return axios.post(url, data, {withCredentials: true});
+        return axios.post(url, {}, {withCredentials: true});
 
     }
 
