@@ -41,6 +41,33 @@ class Api
 
     }
 
+    getOpenRooms()
+    {
+        
+        var url = BASE_URL+'/rooms?state=open';
+
+        return axios.get(url, {withCredentials: true}); 
+
+    }
+
+    createRoom(roomData)
+    {
+
+        var url = BASE_URL+'/rooms';
+
+        return axios.post(url, roomData, {withCredentials: true});
+
+    }
+
+    getRoomDetails(id)
+    {
+
+        var url = BASE_URL+'/rooms/'+id;
+
+        return axios.get(url, {withCredentials: true});
+
+    }
+
 }
 
 export default new Api();
