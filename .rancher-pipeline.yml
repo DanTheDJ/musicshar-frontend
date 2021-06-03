@@ -1,0 +1,14 @@
+stages:
+- name: dockerbuild
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: ghcr.io/danthedj/musicshar-frontend
+      pushRemote: true
+      registry: ghcr.io
+timeout: 60
+branch:
+  include:
+  - master
+notification: {}
