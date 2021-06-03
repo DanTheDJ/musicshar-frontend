@@ -1,6 +1,7 @@
 import io from "socket.io-client";
 import { CHAT_MESSAGE_RECEIVED, CLEAR_CHAT_HISTORY, VIEWER_COUNT_UPDATED, ROOM_LEFT, ROOM_JOINED } from "./redux/actions/types";
-const socketEndpoint = "http://localhost:3000";
+
+const socketEndpoint = process.env.SOCKET_API_BASE_URL;
 
 const socket = io(socketEndpoint, {
     withCredentials: true

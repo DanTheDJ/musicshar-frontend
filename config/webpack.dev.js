@@ -22,7 +22,10 @@ module.exports = merge( common, {
 
     new webpack.DefinePlugin({
 
-      'process.env.NODE_ENV': JSON.stringify( 'development' )
+      'process.env.NODE_ENV': JSON.stringify( 'development' ),
+
+      'process.env.API_BASE_URL': JSON.stringify( 'http://localhost:3000' ),
+      'process.env.SOCKET_API_BASE_URL': JSON.stringify( 'http://localhost:3000' )
 
     }),
 
