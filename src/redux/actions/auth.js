@@ -1,10 +1,13 @@
 import {
     LOGIN_SUCCESS,
     LOGOUT,
-    PROFILE_LOADED
+    PROFILE_LOADED,
+    CHAT_MESSAGE_RECEIVED
 } from './types';
 
 import Api from '/src/Api';
+
+import socket from '/src/Socket';
 
 export const loadProfile = () => (dispatch) => {
 
@@ -23,7 +26,11 @@ export const loadProfile = () => (dispatch) => {
 
         });
 
-        return Promise.resolve();
+        // Start the web socket listeners
+        socket.startListeners(dispatch);
+    
+        // CLEAN UP THE EFFECT
+        return () => socket.disconnect();
 
     })
     .catch(() => {

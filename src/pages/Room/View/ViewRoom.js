@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import Api from '../../../Api';
-import RoomNotFound from '../../../components/RoomNotFound/Index';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 
-import RoomChat from '/src/components/RoomChat/Index';
+import Api from '../../../Api';
+import RoomNotFound from '../../../components/RoomNotFound';
+
+import socket from '/src/Socket';
+
+import RoomChat from '/src/components/RoomChat';
 import RoomContent from '/src/components/RoomContent';
+import RoomViewerCount from '/src/components/RoomViewerCount';
 
 class ViewRoom extends Component
 {
@@ -20,6 +28,13 @@ class ViewRoom extends Component
 
     }
 
+    componentWillUnmount()
+    {
+
+      this.props.leaveRoom(this.props.id);
+
+    }
+
     componentDidMount()
     {
 
@@ -29,6 +44,10 @@ class ViewRoom extends Component
 
         self.setState({
           room: room.data
+        }, () => {
+
+          self.props.joinRoom(self.props.id);
+
         });
 
       })
@@ -67,11 +86,19 @@ class ViewRoom extends Component
             <div class=" rounded overflow-hidden border w-4/6 bg-white mx-3 md:mx-0 lg:mx-0">
               <div class="w-full flex p-3">
                 <div class="flex">
-                  <span class="pt-1 ml-2 font-bold text-sm text-gray-700">{this.state.room.name}</span>
+                  <span class="pt-1 ml-2 font-bold text-sm text-gray-700">{room.name}</span>
                 </div>
-                <span class="px-2 hover:bg-gray-300 cursor-pointer rounded"><i class="fas fa-ellipsis-h pt-2 text-lg"></i></span>
+                <span class="px-2 hover:bg-gray-300 cursor-pointer rounded">
+                  <FontAwesomeIcon icon={faEllipsisH} />
+                </span>
+                <Link to={`/room/${room.id}/manage`}>
+                  <span class="px-2 hover:bg-gray-300 cursor-pointer rounded float-right">
+                    <FontAwesomeIcon icon={faEdit} />
+                  </span>
+                </Link>
               </div>
-              <RoomContent room={this.state.room}></RoomContent>
+              <RoomContent room={room}></RoomContent>
+              <RoomViewerCount room={room}></RoomViewerCount>
               <div class="px-3 pb-2">
                 <div class="pt-2">
                   <i class="far fa-heart cursor-pointer"></i>
@@ -95,7 +122,7 @@ class ViewRoom extends Component
             </div>
             <div class="rounded overflow-hidden border w-1/6 bg-white mx-3 md:mx-0 lg:mx-0">
                 <div class="w-full">
-                    <RoomChat room={this.state.room}></RoomChat>
+                    <RoomChat room={room}></RoomChat>
                 </div>
             </div>
           </div>
@@ -113,4 +140,15 @@ class ViewRoom extends Component
 
 }
 
-export default ViewRoom;
+const mapStateToProps = state => ({
+  user: state.auth.user,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      joinRoom: (id) => socket.joinRoom(id, dispatch),
+      leaveRoom: (id) => socket.leaveRoom(id, dispatch)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewRoom);

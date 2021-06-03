@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CreateRoomForm from '/src/components/CreateRoomForm/Index';
+import CreateRoomForm from '/src/components/CreateRoomForm';
 
 const CreateRoom = () => {
 

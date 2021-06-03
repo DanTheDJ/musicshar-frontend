@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 
 import RoomNotFound from '/src/components/RoomNotFound';
 
-import ViewRoom from '/src/pages/Room/View/ViewRoom';
+import ManageRoom from '/src/pages/Room/Manage/ManageRoom';
 
 const Index = () => {
 
@@ -12,7 +12,7 @@ const Index = () => {
     if(id)
     {
 
-        return <ViewRoom id={id}></ViewRoom>;
+        return <ManageRoom id={id}></ManageRoom>;
 
     }
 

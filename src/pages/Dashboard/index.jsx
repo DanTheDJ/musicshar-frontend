@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import SearchInput from '/src/components/SearchInput/Index';
+import SearchInput from '/src/components/SearchInput';
 import RoomsList from '/src/components/RoomsList';
 
 

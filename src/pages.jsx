@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 
 import CreateRoom from '/src/pages/Room/Create';
 import ViewRoom from '/src/pages/Room/View';
+import ManageRoom from '/src/pages/Room/Manage';
 
 export {
     Home,
@@ -14,5 +15,6 @@ export {
     Login,
     Dashboard,
     CreateRoom,
-    ViewRoom
+    ViewRoom,
+    ManageRoom
 };

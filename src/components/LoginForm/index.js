@@ -137,9 +137,10 @@ const mapStateToProps = state => ({
     user: state.auth.user,
   });
   
-  const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
-      loadProfileInformation: () => dispatch(loadProfile())
+        loadProfileInformation: () => dispatch(loadProfile())
     };
-  };
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
