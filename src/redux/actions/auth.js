@@ -28,9 +28,6 @@ export const loadProfile = () => (dispatch) => {
 
         // Start the web socket listeners
         socket.startListeners(dispatch);
-    
-        // CLEAN UP THE EFFECT
-        return () => socket.disconnect();
 
     })
     .catch(() => {
@@ -45,7 +42,16 @@ export const loadProfile = () => (dispatch) => {
 
 };
 
+export const reconnectSocket = () => (dispatch)  =>{
+
+    // Reconnect the socket so it picks up any changes in the session.
+    socket.reconnect();
+
+};
+
 export const logout = () => (dispatch) => {
+
+    socket.reconnect();
 
     return Api.logout().then(() => {
         dispatch({

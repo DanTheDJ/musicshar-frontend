@@ -4,6 +4,9 @@ export const REGISTER_FAIL = "REGISTER_FAIL";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 
+export const SCROLL_TO_BOTTOM_PAGE = 'SCROLL_TO_BOTTOM_PAGE';
+export const SCROLL_TO_TOP_PAGE = 'SCROLL_TO_TOP_PAGE';
+
 export const PROFILE_LOADED = 'PROFILE_LOADED';
 
 export const LOGOUT = "LOGOUT";
@@ -16,3 +19,6 @@ export const VIEWER_COUNT_UPDATED = 'VIEWER_COUNT_UPDATED';
 
 export const ROOM_JOINED = 'ROOM_JOINED';
 export const ROOM_LEFT = 'ROOM_LEFT';
+export const ROOM_CLOSED = 'ROOM_CLOSED'; 
+
+export const ROOM_DATA_UPDATE = 'ROOM_DATA_UPDATE';

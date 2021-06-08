@@ -16,8 +16,7 @@ class CreateRoomForm extends React.Component {
             room: {
                 name: '',
                 description: '',
-                //privacy
-                //source
+                privacy: 'private'
             }
         };
 
@@ -85,31 +84,41 @@ class CreateRoomForm extends React.Component {
         return (
             <div>
                 <form onSubmit={this.handleFormSubmit}>
-                <div class="flex h-screen items-center justify-center mb-32">
-                <div class="grid bg-white rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
-                    <div class="flex justify-center py-4">
-                    <div class="flex bg-purple-200 rounded-full md:p-4 p-2 border-2 border-purple-300">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                <div className="flex h-screen items-center justify-center mb-32">
+                <div className="grid bg-white rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
+                    <div className="flex justify-center py-4">
+                    <div className="flex bg-purple-200 rounded-full md:p-4 p-2 border-2 border-purple-300">
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
                     </div>
                     </div>
 
-                    <div class="flex justify-center">
-                    <div class="flex">
-                        <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Start a Room</h1>
+                    <div className="flex justify-center">
+                    <div className="flex">
+                        <h1 className="text-gray-600 font-bold md:text-2xl text-xl">Start a Room</h1>
                     </div>
                     </div>
 
-                    <div class="grid grid-cols-1 mt-5 mx-7">
-                        <label class="uppercase md:text-sm text-xs text-gray-500 font-semibold">Room Name</label>
-                        <input class="py-2 px-3 rounded-lg border-2 text-gray-700 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Room Name" name="name" value={this.state.room.name} onChange={this.handleInputChange}/>
+                    <div className="grid grid-cols-1 mt-5 mx-7">
+                        <label className="uppercase md:text-sm text-xs text-gray-500 font-semibold">Room Name</label>
+                        <input className="py-2 px-3 rounded-lg border-2 text-gray-700 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Room Name" name="name" value={this.state.room.name} onChange={this.handleInputChange}/>
                     </div>
 
-                    <div class="grid grid-cols-1 mt-5 mx-7">
-                    <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Privacy</label>
-                    <select class="py-2 px-3 rounded-lg border-2 text-gray-700 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                        <option>Public</option>
-                        <option>Private</option>
-                    </select>
+                    <div className="grid grid-cols-1 mt-5 mx-7">
+                        <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Privacy</label>
+                        <select value={this.state.room.privacy} onChange={this.handleInputChange} name="privacy" className="py-2 px-3 rounded-lg border-2 text-gray-700 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                            <option value="private">Private</option>
+                            <option value="public">Public</option>
+                        </select>
+                        { !!this.state.room && 
+                            <div className="mt-2 ml-2">
+                                {this.state.room.privacy == 'public' && 
+                                <span className="text-gray-700"><span className="font-semibold">Public:</span> Your room can be joined by anyone.</span>
+                                }
+                                {this.state.room.privacy == 'private' && 
+                                <span className="text-gray-700"><span className="font-semibold">Private:</span> Your room can only be joined by people with the link.</span>
+                                }
+                            </div>
+                        }
                     </div>
 
                     <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>

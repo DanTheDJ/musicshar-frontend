@@ -5,7 +5,7 @@ import { Switch, Link, Route } from 'react-router-dom';
 import ProtectedRoute from '/src/components/ProtectedRoute';
 
 // Import pages
-import { Home, Login, Register, Dashboard, CreateRoom, ViewRoom, ManageRoom } from './pages';
+import { Home, Login, Register, Dashboard, CreateRoom, ViewRoom, Profile } from './pages';
 
 const Routes = () => {
 
@@ -16,9 +16,10 @@ const Routes = () => {
 
             <ProtectedRoute exact path="/dashboard" component={Dashboard} />
 
+            <ProtectedRoute exact path="/profile" component={Profile} />
+
             <ProtectedRoute exact path="/room/create" component={CreateRoom} />
 
-            <ProtectedRoute path="/room/:id/manage" component={ManageRoom} />
             <ProtectedRoute path="/room/:id" component={ViewRoom} />
 
             <Route exact path="/auth/register" component={Register} />

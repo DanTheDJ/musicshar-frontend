@@ -9,8 +9,6 @@ const initialState = { messages: [] };
 export default function (state = initialState, action) 
 {
 
-    console.log(initialState);
-
     switch(action.type)
     {
 

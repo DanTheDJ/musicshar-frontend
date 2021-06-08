@@ -41,6 +41,15 @@ class Api
 
     }
 
+    updateProfile(updatedProfileData)
+    {
+
+        var url = BASE_URL+'/auth/me';
+
+        return axios.put(url, updatedProfileData, {withCredentials: true});
+
+    }
+
     getOpenRooms()
     {
         
@@ -65,6 +74,24 @@ class Api
         var url = BASE_URL+'/rooms/'+id;
 
         return axios.get(url, {withCredentials: true});
+
+    }
+
+    closeRoom(id)
+    {
+
+        var url = BASE_URL+'/rooms/'+id;
+
+        return axios.delete(url, {withCredentials: true});
+
+    }
+
+    changeRoomSource(id, source)
+    {
+
+        var url = BASE_URL+'/rooms/'+id+'/source';
+
+        return axios.put(url, source, {withCredentials: true});
 
     }
 

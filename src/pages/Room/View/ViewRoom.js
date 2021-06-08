@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 
-import Api from '../../../Api';
-import RoomNotFound from '../../../components/RoomNotFound';
+import { withAlert } from 'react-alert';
+
+import { Link, Redirect, Switch } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog, faLink } from '@fortawesome/free-solid-svg-icons';
+
+import { ROOM_DATA_UPDATE, SCROLL_TO_BOTTOM_PAGE } from '/src/redux/actions/types';
+
+import Api from '/src/Api';
+import RoomNotFound from '/src/components/RoomNotFound';
+
+import ProtectedRoute from '/src/components/ProtectedRoute';
+
+// Import pages
+import { ManageRoom } from '/src/pages';
 
 import socket from '/src/Socket';
 
 import RoomChat from '/src/components/RoomChat';
 import RoomContent from '/src/components/RoomContent';
 import RoomViewerCount from '/src/components/RoomViewerCount';
+import UserProfileImage from '/src/components/UserProfileImage';
 
 class ViewRoom extends Component
 {
@@ -22,16 +33,17 @@ class ViewRoom extends Component
       super(props);
 
       this.state = {
-        room: null,
         isLoading: true
       };
+
+      this.copySharingLink = this.copySharingLink.bind(this);
 
     }
 
     componentWillUnmount()
     {
 
-      this.props.leaveRoom(this.props.id);
+      this.props.leaveRoom(this.props.id);     
 
     }
 
@@ -42,13 +54,11 @@ class ViewRoom extends Component
 
       Api.getRoomDetails(this.props.id).then(function(room) {
 
-        self.setState({
-          room: room.data
-        }, () => {
+        self.props.roomDataUpdate(room.data);
 
-          self.props.joinRoom(self.props.id);
+        self.props.joinRoom(self.props.id);
 
-        });
+        self.props.scrollToBottomOfPage();
 
       })
       .catch(function(err) {
@@ -66,10 +76,45 @@ class ViewRoom extends Component
 
     }
 
+    currentUserCanEditRoom()
+    {
+
+      if(!!this.props.room.roomData && !!this.props.user)
+      {
+
+        var currentUser = this.props.user;
+
+        return currentUser.id == this.props.room.roomData.ownerUser.id;
+
+      }      
+
+      return false;
+
+    }
+
+    copySharingLink()
+    {
+
+      // Copy to clipboard the current URL
+      navigator.clipboard.writeText(window.location.href).then(() => {
+
+        this.props.alert.success('Copied sharing link to clipboard.');
+
+      }, () => {
+
+        this.props.alert.error('Could not copy link to clipboard.');
+
+      });
+      
+
+    }
+
     render()
     {
 
-      const { room, isLoading} = this.state;
+      const { isLoading} = this.state;
+
+      const { room } = this.props;
 
       if(isLoading)
       {
@@ -77,53 +122,71 @@ class ViewRoom extends Component
         return <div>Loading...</div>;
 
       }
+      
+      if(!!room && room.roomClosed)
+      {
 
-      if(!!room)
+        return <Redirect to="/dashboard"></Redirect>;
+
+      }
+
+      if(!!room.roomData)
       {
 
         return (
-          <div className="flex">
-            <div class=" rounded overflow-hidden border w-4/6 bg-white mx-3 md:mx-0 lg:mx-0">
-              <div class="w-full flex p-3">
-                <div class="flex">
-                  <span class="pt-1 ml-2 font-bold text-sm text-gray-700">{room.name}</span>
-                </div>
-                <span class="px-2 hover:bg-gray-300 cursor-pointer rounded">
-                  <FontAwesomeIcon icon={faEllipsisH} />
-                </span>
-                <Link to={`/room/${room.id}/manage`}>
-                  <span class="px-2 hover:bg-gray-300 cursor-pointer rounded float-right">
-                    <FontAwesomeIcon icon={faEdit} />
-                  </span>
-                </Link>
-              </div>
-              <RoomContent room={room}></RoomContent>
-              <RoomViewerCount room={room}></RoomViewerCount>
-              <div class="px-3 pb-2">
-                <div class="pt-2">
-                  <i class="far fa-heart cursor-pointer"></i>
-                  <span class="text-sm text-gray-400 font-medium">12 likes</span>
-                </div>
-                <div class="pt-1">
-                  <div class="mb-2 text-sm">
-                    <span class="font-medium mr-2">braydoncoyer</span> Lord of the Rings is my favorite film-series. One day I'll make my way to New Zealand to visit the Hobbiton set!
+          <div>
+            <Switch>
+              <ProtectedRoute path="/room/:id/manage" component={ManageRoom} />
+            </Switch>
+            <div className="flex">
+              <div class=" rounded overflow-hidden border w-4/6 bg-white mx-3 md:mx-0 lg:mx-0">
+                <div class="w-full flex p-3">
+                  <div class="flex">
+                    <span class="pt-1 ml-2 font-bold text-sm text-gray-700">{room.roomData.name}</span>
                   </div>
+                  {this.currentUserCanEditRoom() && 
+                    <Link to={`/room/${room.roomData.id}/manage`} title="Manage Room">
+                      <span class="px-2 ml-2 text-gray-600 hover:text-gray-900 cursor-pointer rounded float-right">
+                        <FontAwesomeIcon icon={faCog} />
+                      </span>
+                    </Link>
+                  }
+
+                  <button title="Get Sharing Link" onClick={this.copySharingLink} >
+                    <span class="px-2 ml-2 text-gray-600 hover:text-gray-900 cursor-pointer rounded float-right">
+                      <FontAwesomeIcon icon={faLink} />
+                    </span>
+                  </button>
+
                 </div>
-                <div class="text-sm mb-2 text-gray-400 cursor-pointer font-medium">View all 14 comments</div>
-                <div class="mb-2">
-                  <div class="mb-2 text-sm">
-                    <span class="font-medium mr-2">razzle_dazzle</span> Dude! How cool! I went to New Zealand last summer and had a blast taking the tour! So much to see! Make sure you bring a good camera when you go!
+
+                <RoomContent room={room.roomData}></RoomContent>
+
+                <div class="mt-5 mx-3">
+
+                  <div class="rounded overflow-hidden shadow-lg bg-gray-100 mx-2 px-2 pt-2">
+                    <div className="float-right text-gray-700">
+                        <RoomViewerCount room={room.roomData}></RoomViewerCount>
+                      </div>
+                    <UserProfileImage user={room.roomData.ownerUser} />
+                    <div class="px-6 py-4">
+                      <div class="font-bold text-xl mb-2 text-gray-500">{ room.roomData.ownerUser.name }</div>
+                      <p class="text-gray-700 text-base">
+                      @{ room.roomData.ownerUser.username }
+                      </p>
+                    </div>
                   </div>
+
                 </div>
               </div>
-            </div>
-            <div class="w-1/6">
-                &nbsp;
-            </div>
-            <div class="rounded overflow-hidden border w-1/6 bg-white mx-3 md:mx-0 lg:mx-0">
-                <div class="w-full">
-                    <RoomChat room={room}></RoomChat>
-                </div>
+              <div class="w-1/6">
+                  &nbsp;
+              </div>
+              <div class="rounded overflow-hidden border w-1/6 bg-white mx-3 md:mx-0 lg:mx-0">
+                  <div class="w-full">
+                      <RoomChat room={room.roomData}></RoomChat>
+                  </div>
+              </div>
             </div>
           </div>
         );
@@ -142,13 +205,23 @@ class ViewRoom extends Component
 
 const mapStateToProps = state => ({
   user: state.auth.user,
+  room: state.room
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
+      scrollToBottomOfPage: () => dispatch({
+        type: SCROLL_TO_BOTTOM_PAGE
+      }),
       joinRoom: (id) => socket.joinRoom(id, dispatch),
-      leaveRoom: (id) => socket.leaveRoom(id, dispatch)
+      leaveRoom: (id) => socket.leaveRoom(id, dispatch),
+      roomDataUpdate: (data) => dispatch({
+        type: ROOM_DATA_UPDATE,
+        payload: {
+          data: {room: data}
+        }
+      })
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ViewRoom);
+export default connect(mapStateToProps, mapDispatchToProps) (withAlert()(ViewRoom));

@@ -19,7 +19,7 @@ const Index = ({user}) => {
         })
         .catch(function(err) {
 
-            console.log(err);
+            console.error(err);
 
         });
 

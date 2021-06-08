@@ -6,18 +6,16 @@ import { connect } from 'react-redux';
 
 const RoomViewerCount = ({ room, roomData }) => {
 
-    console.log(roomData);
-
     if(!!roomData && !!roomData.viewerCount)
     {
 
-        const displayText = pluralize('viewer', roomData.viewerCount, true);
+        const displayText = pluralize('Viewer', roomData.viewerCount, true);
 
-        return <div className="text-gray-700">{displayText}</div>;
+        return <div className="font-semibold">{displayText}</div>;
 
     }
 
-    return <div>...</div>;
+    return <div>... Viewers</div>;
 
 };
 

@@ -99,14 +99,14 @@ class RegisterForm extends React.Component
 
                     <div className="mb-4">
                         <label className="block text-blue-300 py-2 font-bold mb-2" htmlFor="emailAddress">
-                            Name
+                            Display Name
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring"
                             id="name"
                             name="name"
                             type="text"
-                            placeholder="you@example.com"
+                            placeholder="Your Name"
                             value={this.state.registrationData.name}
                             onChange={this.handleInputChange}
                             required="required"

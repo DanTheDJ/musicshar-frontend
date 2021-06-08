@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { transitions, positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
+
+import { animateScroll } from "react-scroll";
 
 import { connect } from "react-redux";
 
@@ -24,13 +26,43 @@ import Routes from '../../Routes';
 import backgroundImage from '../../img/header.png';
 import Footer from '../../components/Footer';
 
-const RootWrapper = ({ user, loadProfileInformation }) => {
+const RootWrapper = ({ user, loadProfileInformation, global }) => {
 
   useEffect(() => {
 
     return loadProfileInformation();
 
   }, []);
+
+  useEffect(() => {
+
+    if(!!global.scrollToTop && global.scrollToTop != 0)
+    {
+
+      setTimeout(() => {
+        
+        window.scrollTo(0,0);
+
+      }, 400);
+
+    }
+
+  }, [global.scrollToTop]);
+
+  useEffect(() => {
+
+    if(!!global.scrollToBottom && global.scrollToBottom != 0)
+    {
+
+      setTimeout(() => {
+        
+        window.scrollTo(0,document.body.scrollHeight);
+
+      }, 400);
+
+    }
+
+  }, [global.scrollToBottom]);
 
   return <AlertProvider template={AlertTemplate} {...alertOptions}>
     <div className="leading-normal tracking-normal text-gray-300 bg-cover bg-fixed bg-gray-900 h-full" style={{ backgroundImage: `url("${backgroundImage}")`, minHeight: '100vh' }}>
@@ -47,6 +79,7 @@ const RootWrapper = ({ user, loadProfileInformation }) => {
 
 const mapStateToProps = state => ({
   user: state.auth.user,
+  global: state.global
 });
 
 const mapDispatchToProps = (dispatch) => {

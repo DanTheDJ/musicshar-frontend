@@ -5,7 +5,7 @@ import { connect} from 'react-redux';
 
 import { withAlert } from 'react-alert';
 
-import { loadProfile } from '/src/redux/actions/auth';
+import { loadProfile, reconnectSocket } from '/src/redux/actions/auth';
 
 import Api from '/src/Api';
 import { axiosError } from '/src/helpers/apiErrorHandler';
@@ -57,6 +57,8 @@ class LoginForm extends React.Component
 
         Api.authenticateUser(this.state.loginData).then(() => {
 
+            self.props.reconnectSocket();
+
             self.props.loadProfileInformation();
 
             self.setState({
@@ -66,7 +68,7 @@ class LoginForm extends React.Component
         })
         .catch((err) => {
 
-            //axiosError(self.props.alert, err);       
+            axiosError(self.props.alert, err);       
 
         });
 
@@ -139,8 +141,9 @@ const mapStateToProps = state => ({
   
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadProfileInformation: () => dispatch(loadProfile())
+        loadProfileInformation: () => dispatch(loadProfile()),
+        reconnectSocket: () => dispatch(reconnectSocket())
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps) (withAlert()(LoginForm));

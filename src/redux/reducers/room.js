@@ -1,7 +1,9 @@
 import {
     ROOM_JOINED,
     ROOM_LEFT,
-    VIEWER_COUNT_UPDATED
+    VIEWER_COUNT_UPDATED,
+    ROOM_CLOSED,
+    ROOM_DATA_UPDATE
 } from "../actions/types";
 
 const initialState = {
@@ -16,16 +18,32 @@ export default function (state = initialState, action)
 
         case ROOM_JOINED:
             return {
-                ...state
+                ...state,
             };
             break;
         case ROOM_LEFT:
             return {
                 ...state,
-                viewerCount: null
+                viewerCount: null,
+                roomData: undefined
             };
             break;
-            
+        case ROOM_CLOSED:
+            return {
+                ...state,
+                roomClosed: true,
+                roomData: null
+            };
+            break;
+
+        case ROOM_DATA_UPDATE:
+            return {
+                ...state,
+                roomData: action.payload.data.room,
+                roomClosed: false
+            };
+            break;
+
         case VIEWER_COUNT_UPDATED:
             return {
                 ...state,

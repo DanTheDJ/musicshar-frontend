@@ -1,20 +1,18 @@
 function axiosError(alert, err)
 {
 
-    console.log(err);
-
     if( err.response && !!err.response.data.message )
     {
 
         console.log(err.response.data);
 
-        //alert.error(err.response.data.message);
+        alert.error(err.response.data.message);
 
     }
     else
     {
 
-        //alert.error(err.toString());
+        alert.error(err.toString());
 
     }
 

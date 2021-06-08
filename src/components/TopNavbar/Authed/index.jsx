@@ -11,12 +11,12 @@ const Authed = ({user, logout }) => {
                     Music<span className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">Shar</span>
                 </Link>
                 <div className="flex w-1/2 justify-end content-center">
-                    <div className="pr-2">
+                    <div className="pr-2 text-blue-300">
                         <Link to="/profile">
                             <p>{user.name}</p>
                         </Link>
                     </div>
-                    <div>
+                    <div className="text-blue-300">
                         <button onClick={logout}>
                         Logout
                         </button>

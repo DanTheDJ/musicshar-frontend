@@ -7,7 +7,7 @@ import SentMessage from './SentMessage';
 
 const ChatMessage = ({ user, message }) => {
 
-    const isSender = false;
+    const isSender = !!message && !!user && !!message.sender && message.sender.userId == user.id;
 
     if(isSender)
     {

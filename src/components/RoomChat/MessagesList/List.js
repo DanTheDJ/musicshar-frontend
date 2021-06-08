@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -6,24 +6,35 @@ import ChatMessage from '../ChatMessage';
 
 const MessagesList = ({ chat }) => {
 
-    console.log(chat.messages);
+    const messagesEndRef = useRef(null);
 
-    return chat.messages.map((message) => {
+    const scrollToBottomOfMessages = () => {
 
-        return <ChatMessage key={message.id} message={message} />;
+        messagesEndRef.current.scrollIntoView();
 
-    });
+    };
+
+    useEffect(() => {
+
+        scrollToBottomOfMessages();
+
+    }, [!!chat.messages ? chat.messages.length : chat.messages]);
+
+    return <React.Fragment>
+        {
+            chat.messages.map((message) => {
+
+                return <ChatMessage key={message.id} message={message} />;
+
+            })
+        }
+        <div ref={messagesEndRef} />
+    </React.Fragment>;
 
 };
 
 const mapStateToProps = state => ({
     chat: state.chat
-  });
-  
-const mapDispatchToProps = (dispatch) => {
-    return {
-        //loadProfileInformation: () => dispatch(loadProfile())
-    };
-};
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(MessagesList);
+export default connect(mapStateToProps)(MessagesList);
