@@ -15,7 +15,7 @@ const UserProfileImage = ({ user, classes }) => {
     if(!!user)
     {
 
-        return <img class={classnames(imageClasses, classes)} src={`https://eu.ui-avatars.com/api/?name=${user.name.replace(' ', '+')}`} title={`${user.name} (${user.username})`} />;
+        return <img className={classnames(imageClasses, classes)} src={`https://eu.ui-avatars.com/api/?name=${user.name.replace(' ', '+')}`} title={`${user.name} (${user.username})`} />;
 
     }
 

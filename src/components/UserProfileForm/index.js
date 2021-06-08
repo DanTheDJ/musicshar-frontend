@@ -100,8 +100,8 @@ class UserProfileForm extends React.Component {
                                     <input className="py-2 px-3 rounded-lg border-2 text-gray-700 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="email" name="email" value={this.state.user.email} onChange={this.handleInputChange} />
                                 </div>
     
-                                <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
-                                    <button class='w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type="submit">Save</button>
+                                <div className="'flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
+                                    <button className="'w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' type="submit">Save</button>
                                 </div>
     
                             </div>

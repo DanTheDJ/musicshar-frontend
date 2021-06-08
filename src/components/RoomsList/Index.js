@@ -55,7 +55,7 @@ const Index = ({ user, alert }) => {
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
                                 {rooms.map(function(room) {
-                                    return <RoomListItem room={room}></RoomListItem>;
+                                    return <RoomListItem key={room.id} room={room}></RoomListItem>;
                                 })}
                             </tbody>
                         </table>
