@@ -139,21 +139,21 @@ class ViewRoom extends Component
               <ProtectedRoute path="/room/:id/manage" component={ManageRoom} />
             </Switch>
             <div className="flex">
-              <div class=" rounded overflow-hidden border w-4/6 bg-white mx-3 md:mx-0 lg:mx-0">
-                <div class="w-full flex p-3">
-                  <div class="flex">
-                    <span class="pt-1 ml-2 font-bold text-sm text-gray-700">{room.roomData.name}</span>
+              <div className=" rounded overflow-hidden border w-4/6 bg-white mx-3 md:mx-0 lg:mx-0">
+                <div className="w-full flex p-3">
+                  <div className="flex">
+                    <span className="pt-1 ml-2 font-bold text-sm text-gray-700">{room.roomData.name}</span>
                   </div>
                   {this.currentUserCanEditRoom() && 
                     <Link to={`/room/${room.roomData.id}/manage`} title="Manage Room">
-                      <span class="px-2 ml-2 text-gray-600 hover:text-gray-900 cursor-pointer rounded float-right">
+                      <span className="px-2 ml-2 text-gray-600 hover:text-gray-900 cursor-pointer rounded float-right">
                         <FontAwesomeIcon icon={faCog} />
                       </span>
                     </Link>
                   }
 
                   <button title="Get Sharing Link" onClick={this.copySharingLink} >
-                    <span class="px-2 ml-2 text-gray-600 hover:text-gray-900 cursor-pointer rounded float-right">
+                    <span className="px-2 ml-2 text-gray-600 hover:text-gray-900 cursor-pointer rounded float-right">
                       <FontAwesomeIcon icon={faLink} />
                     </span>
                   </button>
@@ -162,16 +162,16 @@ class ViewRoom extends Component
 
                 <RoomContent room={room.roomData}></RoomContent>
 
-                <div class="mt-5 mx-3">
+                <div className="mt-5 mx-3">
 
-                  <div class="rounded overflow-hidden shadow-lg bg-gray-100 mx-2 px-2 pt-2">
+                  <div className="rounded overflow-hidden shadow-lg bg-gray-100 mx-2 px-2 pt-2">
                     <div className="float-right text-gray-700">
                         <RoomViewerCount room={room.roomData}></RoomViewerCount>
                       </div>
                     <UserProfileImage user={room.roomData.ownerUser} />
-                    <div class="px-6 py-4">
-                      <div class="font-bold text-xl mb-2 text-gray-500">{ room.roomData.ownerUser.name }</div>
-                      <p class="text-gray-700 text-base">
+                    <div className="px-6 py-4">
+                      <div className="font-bold text-xl mb-2 text-gray-500">{ room.roomData.ownerUser.name }</div>
+                      <p className="text-gray-700 text-base">
                       @{ room.roomData.ownerUser.username }
                       </p>
                     </div>
@@ -179,11 +179,11 @@ class ViewRoom extends Component
 
                 </div>
               </div>
-              <div class="w-1/6">
+              <div className="w-1/6">
                   &nbsp;
               </div>
-              <div class="rounded overflow-hidden border w-1/6 bg-white mx-3 md:mx-0 lg:mx-0">
-                  <div class="w-full">
+              <div className="rounded overflow-hidden border w-1/6 bg-white mx-3 md:mx-0 lg:mx-0">
+                  <div className="w-full">
                       <RoomChat room={room.roomData}></RoomChat>
                   </div>
               </div>

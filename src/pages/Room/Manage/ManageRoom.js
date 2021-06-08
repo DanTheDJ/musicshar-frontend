@@ -103,70 +103,70 @@ class ManageRoom extends Component
 
         return (
           <div className="flex mb-2 mt-2">
-            <div class="rounded overflow-hidden border w-full bg-white mx-3 md:mx-0 lg:mx-0">
-              <div class="w-full flex p-3 mt-3">
-                <div class="flex">
+            <div className="rounded overflow-hidden border w-full bg-white mx-3 md:mx-0 lg:mx-0">
+              <div className="w-full flex p-3 mt-3">
+                <div className="flex">
                   <Link to={`/room/${room.id}`}>
-                    <span class="px-2 hover:bg-gray-300 cursor-pointer rounded float-right">
+                    <span className="px-2 hover:bg-gray-300 cursor-pointer rounded float-right">
                       <FontAwesomeIcon icon={faArrowLeft} />
                     </span>
                   </Link>
-                  <span class="pt-1 ml-2 font-bold text-sm text-gray-700">Manage <span className="text-gray-500">`{room.name}`</span></span>
+                  <span className="pt-1 ml-2 font-bold text-sm text-gray-700">Manage <span className="text-gray-500">`{room.name}`</span></span>
                 </div>
               </div>
-              <div class="w-full flex pt-3">
+              <div className="w-full flex pt-3">
                 <div>
-                  <span class="pt-1 ml-2 font-bold text-sm text-gray-700">Quick Actions: </span>
+                  <span className="pt-1 ml-2 font-bold text-sm text-gray-700">Quick Actions: </span>
                 </div>
                 
               </div>
-              <div class="w-full flex p-3">
+              <div className="w-full flex p-3">
                 <div>
                   <button type="button" onClick={this.closeRoom} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Close Room</button>
                 </div>
               </div>
-              <div class="flex flex-wrap -m-4">
-                <div class="p-4 md:w-1/3">
-                    <div class="flex rounded-lg h-full bg-gray-800 bg-opacity-60 p-8 flex-col">
-                      <div class="flex items-center mb-3">
-                          <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-blue-500 text-white flex-shrink-0">
+              <div className="flex flex-wrap -m-4">
+                <div className="p-4 md:w-1/3">
+                    <div className="flex rounded-lg h-full bg-gray-800 bg-opacity-60 p-8 flex-col">
+                      <div className="flex items-center mb-3">
+                          <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-blue-500 text-white flex-shrink-0">
                             <FontAwesomeIcon icon={faComment} />
                           </div>
-                          <h2 class="text-white text-lg title-font font-medium">Live Chat</h2>
+                          <h2 className="text-white text-lg title-font font-medium">Live Chat</h2>
                       </div>
-                      <div class="flex-grow">
+                      <div className="flex-grow">
                           <RoomChat room={room} />
-                          <a class="mt-3 text-blue-400 inline-flex items-center">
+                          <a className="mt-3 text-blue-400 inline-flex items-center">
                             Learn More
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
                                 <path d="M5 12h14M12 5l7 7-7 7"></path>
                             </svg>
                           </a>
                       </div>
                     </div>
                 </div>
-                <div class="p-4 md:w-1/3">
-                    <div class="flex rounded-lg h-full bg-gray-800 bg-opacity-60 p-8 flex-col">
-                      <div class="flex items-center mb-3">
-                          <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-blue-500 text-white flex-shrink-0">
+                <div className="p-4 md:w-1/3">
+                    <div className="flex rounded-lg h-full bg-gray-800 bg-opacity-60 p-8 flex-col">
+                      <div className="flex items-center mb-3">
+                          <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-blue-500 text-white flex-shrink-0">
                             <FontAwesomeIcon icon={faVideo} />
                           </div>
-                          <h2 class="text-white text-lg title-font font-medium">Viewer Count</h2>
+                          <h2 className="text-white text-lg title-font font-medium">Viewer Count</h2>
                       </div>
-                      <div class="flex-grow text-white">
+                      <div className="flex-grow text-white">
                         <RoomViewerCount room={room}></RoomViewerCount>
                       </div>
                     </div>
                 </div>
-                <div class="p-4 md:w-1/3">
-                    <div class="flex rounded-lg h-full bg-gray-800 bg-opacity-60 p-8 flex-col">
-                      <div class="flex items-center mb-3">
-                          <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-blue-500 text-white flex-shrink-0">
+                <div className="p-4 md:w-1/3">
+                    <div className="flex rounded-lg h-full bg-gray-800 bg-opacity-60 p-8 flex-col">
+                      <div className="flex items-center mb-3">
+                          <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-blue-500 text-white flex-shrink-0">
                             <FontAwesomeIcon icon={faLaptopCode} />
                           </div>
-                          <h2 class="text-white text-lg title-font font-medium">Room Source</h2>
+                          <h2 className="text-white text-lg title-font font-medium">Room Source</h2>
                       </div>
-                      <div class="flex-grow text-white">
+                      <div className="flex-grow text-white">
                         Change Room Source
 
                         <ChangeRoomSourceForm room={room} />

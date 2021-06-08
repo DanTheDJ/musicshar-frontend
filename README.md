@@ -16,8 +16,14 @@ To install the dependencies, run `npm install`.
 
 The following commands are available:  
 
-`build:dev` - Builds the project using Webpack in development mode.  
-`build:prod` - Builds the project using Webpack in production mode.  
-`serve` - Builds the project using Webpack in development mode and starts a Webpack dev server on [http://locahost:8000](http://locahost:8000).
+`start` - Start the *nodemon* process to watch for file changes and restart the app
 
 To run a command, type `npm run` followed by any of the commands above.  
+
+## DB Operations
+
+To create the database, configure the correct connection details within `src/config/config.js`.
+
+Then run:
+`npx sequelize db:create` - Create the database
+`npx sequelize db:migrate` - Run the database migrations

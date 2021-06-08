@@ -21,7 +21,7 @@ const Dashboard = ({ user }) => {
 
             <div className="w-full">
 
-                <Link to="/room/create" class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out" type="submit">
+                <Link to="/room/create" className="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out" type="submit">
                 Open Room
                 </Link>
 

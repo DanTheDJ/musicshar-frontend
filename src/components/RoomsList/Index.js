@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 
 import { connect } from 'react-redux';
 
+import { withAlert } from 'react-alert';
+
 import RoomListItem from './RoomListItem';
 
 import Api from '/src/Api';
 
-const Index = ({user}) => {
+import { axiosError } from '/src/helpers/apiErrorHandler';
+
+const Index = ({ user, alert }) => {
 
     const [rooms, setRooms] = useState([]);
 
@@ -21,33 +25,35 @@ const Index = ({user}) => {
 
             console.error(err);
 
+            axiosError(alert, err);
+
         });
 
     }, []);
 
     return (<div>
-        <div class="flex flex-col">
-            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+        <div className="flex flex-col">
+            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <table className="min-w-full divide-y divide-gray-200">
+                            <thead className="bg-gray-50">
                                 <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Host
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Name
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Status
                                 </th>
-                                <th scope="col" class="relative px-6 py-3">
-                                    <span class="sr-only">Edit</span>
+                                <th scope="col" className="relative px-6 py-3">
+                                    <span className="sr-only">Edit</span>
                                 </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody className="bg-white divide-y divide-gray-200">
                                 {rooms.map(function(room) {
                                     return <RoomListItem room={room}></RoomListItem>;
                                 })}
@@ -65,4 +71,4 @@ const mapStateToProps = state => ({
     user: state.auth.user,
 });
 
-export default connect(mapStateToProps)(Index);
+export default connect(mapStateToProps)(withAlert()(Index));

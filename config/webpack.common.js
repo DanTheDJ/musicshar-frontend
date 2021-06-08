@@ -4,6 +4,8 @@ const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
 const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 
+const WorkboxPlugin = require('workbox-webpack-plugin');
+
 const packageJson = require( '../package.json' );
 
 const SRC_PATH = path.resolve( __dirname, '../src' );
@@ -110,8 +112,7 @@ module.exports = {
 
     }),
 
-    // Uncomment if using moment.js
-    // new webpack.IgnorePlugin( /^\.\/locale$/, [/moment$/] )
+    new WorkboxPlugin.GenerateSW()
 
   ],
 

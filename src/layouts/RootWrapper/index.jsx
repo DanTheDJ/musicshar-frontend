@@ -30,7 +30,7 @@ const RootWrapper = ({ user, loadProfileInformation, global }) => {
 
   useEffect(() => {
 
-    return loadProfileInformation();
+    loadProfileInformation();
 
   }, []);
 
