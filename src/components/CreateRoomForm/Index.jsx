@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 
 import Api from '/src/Api';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+
 import { axiosError } from '/src/helpers/apiErrorHandler';
 class CreateRoomForm extends React.Component {
 
@@ -87,8 +90,8 @@ class CreateRoomForm extends React.Component {
                 <div className="flex h-screen items-center justify-center mb-32">
                 <div className="grid bg-white rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
                     <div className="flex justify-center py-4">
-                    <div className="flex bg-purple-200 rounded-full md:p-4 p-2 border-2 border-purple-300">
-                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                    <div className="flex bg-purple-200 rounded-full md:p-4 p-2 border-2 border-purple-300 text-gray-600">
+                        <FontAwesomeIcon icon={faPlusCircle} />
                     </div>
                     </div>
 

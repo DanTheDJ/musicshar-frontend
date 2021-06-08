@@ -37,6 +37,8 @@ class UserProfileForm extends React.Component {
 
             self.props.loadProfileInformation();
 
+            self.props.alert.success('Updated profile info successfully.');
+
         })
         .catch((err) => {
 
