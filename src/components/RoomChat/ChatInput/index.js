@@ -23,7 +23,7 @@ const ChatInput = ({ room, sendChatMessage }) => {
         }}>
             <input onChange={(event) => { setChatMessage(event.target.value); }} value={chatMessage} type="text" className="text-black border-2 border-gray-300 bg-white h-10 px-5 rounded-lg text-sm focus:outline-none w-5/6" />
 
-            <button type="submit" className="text-black ml-2">Send</button>
+            <button type="submit" className="text-black bg-purple-500 rounded-md text-white px-2 py-2 float-right">Send</button>
         </form>
     </div>;
 

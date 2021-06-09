@@ -5,9 +5,9 @@ import { withAlert } from 'react-alert';
 
 import { Link, Redirect, Switch } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog, faLink } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faComment, faLink } from '@fortawesome/free-solid-svg-icons';
 
-import { ROOM_DATA_UPDATE, SCROLL_TO_BOTTOM_PAGE } from '/src/redux/actions/types';
+import { ROOM_DATA_UPDATE, SCROLL_TO_BOTTOM_PAGE, TOGGLE_MOBILE_CHAT } from '/src/redux/actions/types';
 
 import Api from '/src/Api';
 import RoomNotFound from '/src/components/RoomNotFound';
@@ -24,6 +24,7 @@ import RoomContent from '/src/components/RoomContent';
 import RoomViewerCount from '/src/components/RoomViewerCount';
 import UserProfileImage from '/src/components/UserProfileImage';
 
+import classnames from 'classnames';
 class ViewRoom extends Component
 {
 
@@ -37,6 +38,7 @@ class ViewRoom extends Component
       };
 
       this.copySharingLink = this.copySharingLink.bind(this);
+      this.toggleMobileChat = this.toggleMobileChat.bind(this);
 
     }
 
@@ -109,12 +111,19 @@ class ViewRoom extends Component
 
     }
 
+    toggleMobileChat()
+    {
+
+      this.props.toggleMobileChat();
+
+    }
+
     render()
     {
 
       const { isLoading} = this.state;
 
-      const { room } = this.props;
+      const { room, chat } = this.props;
 
       if(isLoading)
       {
@@ -130,16 +139,33 @@ class ViewRoom extends Component
 
       }
 
+      const mobileChatClasses = ["rounded", "overflow-hidden", "border", "col-span-full", "lg:hidden", "bg-white", "mx-3", "md:mx-0"];
+
+      if(!chat.mobileChatOpen)
+      {
+
+        // Mobile chat isn't open, hide it
+        mobileChatClasses.push('hidden');
+
+      }
+
       if(!!room.roomData)
       {
 
         return (
-          <div>
+          <React.Fragment>
             <Switch>
               <ProtectedRoute path="/room/:id/manage" component={ManageRoom} />
             </Switch>
-            <div className="flex">
-              <div className=" rounded overflow-hidden border w-4/6 bg-white mx-3 md:mx-0 lg:mx-0">
+            <div className="grid grid-cols-12">
+
+              <div className={classnames(mobileChatClasses)}>
+                  <div className="w-full">
+                      <RoomChat room={room.roomData} isMobileView={true}></RoomChat>
+                  </div>
+              </div>
+
+              <div className="rounded overflow-hidden border col-span-full lg:col-span-9 bg-white mx-3 md:mx-0 lg:mx-0">
                 <div className="w-full flex p-3">
                   <div className="flex">
                     <span className="pt-1 ml-2 font-bold text-sm text-gray-700">{room.roomData.name}</span>
@@ -158,13 +184,19 @@ class ViewRoom extends Component
                     </span>
                   </button>
 
+                  <button className="lg:hidden" title="Toggle Mobile Chat" onClick={this.toggleMobileChat} >
+                    <span className="px-2 ml-2 text-gray-600 hover:text-gray-900 cursor-pointer rounded float-right">
+                      <FontAwesomeIcon icon={faComment} />
+                    </span>
+                  </button>
+
                 </div>
 
                 <RoomContent room={room.roomData}></RoomContent>
 
                 <div className="mt-5 mx-3">
 
-                  <div className="rounded overflow-hidden shadow-lg bg-gray-100 mx-2 px-2 pt-2">
+                  <div className="rounded overflow-hidden shadow-lg bg-gray-100 mx-2 px-2 pt-2 mb-5">
                     <div className="float-right text-gray-700">
                         <RoomViewerCount room={room.roomData}></RoomViewerCount>
                       </div>
@@ -179,16 +211,14 @@ class ViewRoom extends Component
 
                 </div>
               </div>
-              <div className="w-1/6">
-                  &nbsp;
-              </div>
-              <div className="rounded overflow-hidden border w-1/6 bg-white mx-3 md:mx-0 lg:mx-0">
+
+              <div className="rounded overflow-hidden border hidden lg:block lg:col-span-3 bg-white mx-3 md:mx-0">
                   <div className="w-full">
                       <RoomChat room={room.roomData}></RoomChat>
                   </div>
               </div>
             </div>
-          </div>
+          </React.Fragment>
         );
 
       }
@@ -205,7 +235,8 @@ class ViewRoom extends Component
 
 const mapStateToProps = state => ({
   user: state.auth.user,
-  room: state.room
+  room: state.room,
+  chat: state.chat
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -220,6 +251,9 @@ const mapDispatchToProps = (dispatch) => {
         payload: {
           data: {room: data}
         }
+      }),
+      toggleMobileChat: () => dispatch({
+        type: TOGGLE_MOBILE_CHAT
       })
   };
 };

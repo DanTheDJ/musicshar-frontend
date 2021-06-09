@@ -4,6 +4,8 @@ const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
 const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
 const packageJson = require( '../package.json' );
@@ -111,6 +113,12 @@ module.exports = {
       chunkFilename: '[id].css'
 
     }),
+
+    new CopyWebpackPlugin([
+        {from:'src/img',to:'img'},
+        {from:'src/robots.txt',to:'robots.txt'},
+        {from:'src/manifest.json',to:'manifest.json'},
+    ]),
 
     new WorkboxPlugin.GenerateSW()
 

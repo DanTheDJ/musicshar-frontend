@@ -1,8 +1,12 @@
 module.exports = {
-  purge: [
+  purge: {
+    enabled: true,
+    content: [
     './src/**/*.html',
+    './src/**/*.js',
     './src/**/*.jsx',
-  ],
+    ]
+  },
   darkMode: false, // or 'media' or 'class'
   theme: {
     backdropFilter: {
@@ -16,5 +20,4 @@ module.exports = {
   plugins: [
     require('tailwindcss-filters'),
   ],
-  plugins: [],
 }

@@ -6,20 +6,6 @@ import ChatMessage from '../ChatMessage';
 
 const MessagesList = ({ chat }) => {
 
-    const messagesEndRef = useRef(null);
-
-    const scrollToBottomOfMessages = () => {
-
-        messagesEndRef.current.scrollIntoView();
-
-    };
-
-    useEffect(() => {
-
-        scrollToBottomOfMessages();
-
-    }, [!!chat.messages ? chat.messages.length : chat.messages]);
-
     return <React.Fragment>
         {
             chat.messages.map((message) => {
@@ -28,7 +14,6 @@ const MessagesList = ({ chat }) => {
 
             })
         }
-        <div ref={messagesEndRef} />
     </React.Fragment>;
 
 };

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+
+import { withAlert } from 'react-alert';
 
 import Api from '/src/Api';
 
@@ -103,7 +104,7 @@ class CreateRoomForm extends React.Component {
 
                     <div className="grid grid-cols-1 mt-5 mx-7">
                         <label className="uppercase md:text-sm text-xs text-gray-500 font-semibold">Room Name</label>
-                        <input className="py-2 px-3 rounded-lg border-2 text-gray-700 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Room Name" name="name" value={this.state.room.name} onChange={this.handleInputChange}/>
+                        <input className="py-2 px-3 rounded-lg border-2 text-gray-700 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Room Name" name="name" required="required" value={this.state.room.name} onChange={this.handleInputChange}/>
                     </div>
 
                     <div className="grid grid-cols-1 mt-5 mx-7">
@@ -139,4 +140,4 @@ class CreateRoomForm extends React.Component {
 
 }
 
-export default CreateRoomForm;
+export default withAlert()(CreateRoomForm);

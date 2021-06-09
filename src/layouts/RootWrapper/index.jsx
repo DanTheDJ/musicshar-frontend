@@ -54,11 +54,11 @@ const RootWrapper = ({ user, loadProfileInformation, global }) => {
     if(!!global.scrollToBottom && global.scrollToBottom != 0)
     {
 
-      setTimeout(() => {
+      // setTimeout(() => {
         
-        window.scrollTo(0,document.body.scrollHeight);
+      //   window.scrollTo(0,document.body.scrollHeight);
 
-      }, 400);
+      // }, 400);
 
     }
 
